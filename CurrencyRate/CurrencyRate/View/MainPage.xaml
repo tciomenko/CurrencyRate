@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:AbstractPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CurrencyRate.ViewModel"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:v="clr-namespace:CurrencyRate.View"
+             mc:Ignorable="d"
+             x:Class="CurrencyRate.View.MainPage"
+             x:TypeArguments="vm:MainPageViewModel">
+    <AbsoluteLayout>
+        <DatePicker x:Name="datePicker" AbsoluteLayout.LayoutBounds="0.5,0" AbsoluteLayout.LayoutFlags="XProportional"  MaximumDate="{x:Static sys:DateTime.Now}" Date="{Binding CurrentDate,Mode=TwoWay}" MinimumDate="{Binding MinDate}"/>
+        <CollectionView ItemsSource="{Binding RatePerDay.ExchangeRate}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,40" ItemSizingStrategy="MeasureFirstItem">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".33*"/>
+                            <ColumnDefinition Width=".33*"/>
+                            <ColumnDefinition Width=".33*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Text="{Binding Currency}" Grid.RowSpan="2" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" VerticalOptions="Center" Text="{Binding SaleRateNb}"/>
+                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding PurchaseRateNb}" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" Text="{Binding SaleRate}" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" Grid.Row="1" Text="{Binding PurchaseRate}" VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Нет данных"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </AbsoluteLayout>
+</v:AbstractPage>
